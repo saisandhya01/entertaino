@@ -1,0 +1,43 @@
+body{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.container {
+    background-color: #F0DB4F;
+    padding: 16px;
+    border-radius: 8px;
+    width: 700px;
+    max-width: 90%;
+}
+.timer{
+    position: absolute;
+    top:45px;
+    color: #F0DB4F;
+    font-size: 40px;
+}
+.quote-display{
+    margin-bottom: 16px;
+}
+.quote-input{
+    background-color: transparent;
+    border: 2px solid #A1922E;
+    outline: none;
+    width: 90%;
+    height: 8rem;
+    margin:auto;
+    resize: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 7px;
+
+}
+.correct{
+    color: green;
+}
+.incorrect{
+    color: red;
+}

@@ -1,0 +1,52 @@
+.body-container{
+    color:#a6003a;
+    background-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    padding: 15px;
+    width: 100%;
+}
+.container-calendar{
+    border: 2px solid blue;
+    margin-top: 15px;
+    width: 400px;
+}
+td{
+    cursor: pointer;
+}
+.diary{
+    border: 2px solid violet;
+    width: 400px;
+    height: 600px;
+    margin-top: 15px;
+}
+#diary-date{
+    height: 6%;
+}
+#diary-content{
+    border: 1px solid white;
+    height: 82%;
+    overflow: auto;
+}
+#save-button{
+    height: 8%;
+    width:100%;
+}
+.form-inline{
+    padding: 10px;
+}
+p{
+    padding: 15px;
+}
+@media screen and (max-width: 400px){
+    .container-calendar{
+        border: 2px solid blue;
+        width: 100%;
+        margin-top: 15px;
+    }
+    td,th{
+        max-width: 14.28%;
+    }
+}

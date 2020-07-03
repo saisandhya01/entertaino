@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write your Diary</title>
+    <link href="/diary.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+</head>
+<body>
+    <div class="body-container">
+        <div class="container-calendar">
+            <h3 class="container-header" id="monthAndYear"></h3>
+            <table id="calendar" class="table table-bordered table-responsive-sm">
+                <thead>
+                    <tr id="days">
+                     </tr>
+                </thead>
+                <tbody id="calendar-body">
+
+                </tbody>
+            </table>
+            <div class="form-inline">
+                <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Previous</button>
+                <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">Next</button>    
+            </div>
+            <br>
+            <p>Jump to:</p>
+            <div class="form-inline">
+                <label for="month">Month:</label>
+                <select class="form-control col-sm-4" name="month" id="month" onchange="jump()">
+                </select>
+                <label for="year">Year:</label>
+                <select class="form-control col-sm-4" name="year" id="year" onchange="jump()">
+                </select>
+            </div>
+        </div>
+
+        <div class="diary">
+         <h2 id="diary-date">Date</h2>
+         <p contenteditable="true" id="diary-content">Write your diary here...</p>
+         <button type="button" id="save-button">Save</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script src="/diary.js">
+    </script>
+</body>
+</html>

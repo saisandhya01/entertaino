@@ -1,0 +1,54 @@
+body{
+    font-family: 'Amatic SC', cursive;
+    font-size: 20px;
+    background: black;
+    color:rgb(148, 67, 148);
+}
+.login{
+    border: 1px solid black;
+    background: #171E38;
+    padding: 13px;
+    padding-right: 18px;
+    width: 500px;
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-right: -50%;
+    transform: translate(-50%,-50%);
+    z-index: 9;
+}
+.login h2{
+    position: relative;
+    left:40%;
+    color: #a6003a;
+}
+.form-label{
+    width:100%;
+    font-size: 25px;
+    color: #a6003a;
+}
+.form-input{
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+}
+.login button{
+    font-family: 'Amatic SC',cursive;
+    width: 32%;
+    height: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+    left:35%;
+    color:#a6003a;
+}
+@media screen and (max-width: 580px){
+    .login{
+    border: 1px solid whitesmoke;
+    border-radius: 3px;
+    padding: 15px;
+    width: 70%;
+    margin: 10px auto;
+    z-index: 9;
+   } 
+}

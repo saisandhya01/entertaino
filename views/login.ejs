@@ -10,6 +10,9 @@
 <body>
     <div class="login">
     <h2>Login</h2>
+    <% if(messages.error) { %>
+        <%= messages.error %><br>
+        <% } %>
     <form method="POST">
         <label for="username" class="form-label">Your Username:</label>
         <input type="text" name="username" id="username" placeholder="Username" class="form-input"><br><br>

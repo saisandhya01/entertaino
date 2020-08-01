@@ -11,6 +11,9 @@
     <div class="register">
     <h2>Sign Up</h2>
     <form method="POST">
+        <% if(messages.exist) { %>
+            <%= messages.exist %><br>
+            <% } %>      
         <label for="name" class="form-label"><strong>Your name: </strong>
         <input type="text" class="form-input" name="name" id="name" placeholder="Name" required></label><br><br>
         <label for="username" class="form-label"><strong>Your Username: </strong>

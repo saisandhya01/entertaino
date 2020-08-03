@@ -61,7 +61,7 @@ function clearTimer(){
 }
 function sendScoreToServer(score){
     const scoreDetails={
-        name:'TypingGame',
+        name:'game1',
         score: score
     }
     var xhr=new window.XMLHttpRequest();

@@ -7,12 +7,12 @@ const bodyParser=require('body-parser');
 const PORT=process.env.PORT || 3000;
 const app=express();
 
-const TWO_HOURS=1000*60*60*2;
+const THREE_HOURS=1000*60*60*3;
 const {
   NODE_ENV='development',
   SESS_NAME='name',
   SESS_SECRET='secret',
-  SESS_LIFETIME=TWO_HOURS
+  SESS_LIFETIME=THREE_HOURS
 } =process.env
 const IN_PROD=NODE_ENV==='production';
 
@@ -103,8 +103,16 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
           username: req.body.username,
           password: hashedPassword
         }
-        const sql="INSERT INTO users SET ?"
-        db.query(sql,user,(err,result)=>{
+        const userScore={
+          username: req.body.username
+        }
+        const sql="INSERT INTO score SET ?"
+        db.query(sql,userScore,(err,result)=>{
+          if(err) throw err
+          console.log(result)
+        })
+        const sql1="INSERT INTO users SET ?"
+        db.query(sql1,user,(err,result)=>{
           if(err) throw err;
           res.redirect('/login')
         })
@@ -278,25 +286,37 @@ app.get('/task/:date',(req,res)=>{
     }
   })
 })
-app.get('/choose/game',(request,response)=>{
+app.get('/choose/game',checkAuthenticated,(request,response)=>{
     response.render('chooseGame');
 })
-app.get('/game1',(request,response)=>{
+app.get('/game1',checkAuthenticated,(request,response)=>{
     response.render('typingGame');
 })
-app.get('/game2',(request,response)=>{
+app.get('/game2',checkAuthenticated,(request,response)=>{
     response.render('handGame');
 })
-app.get('/game3',(request,response)=>{
+app.get('/game3',checkAuthenticated,(request,response)=>{
     response.render('fallOutGame');
 })
-app.get('/scoreboard',(request,response)=>{
+app.get('/scoreboard',checkAuthenticated,(request,response)=>{
     response.render('scoreboard')
 })
+app.get('/score/table',checkAuthenticated,(req,res)=>{
+  const sql="SELECT username,(game1+game2+game3) AS scores FROM score ORDER BY (game1+game2+game3) DESC"
+  db.query(sql,(err,result)=>{
+    if(err) throw err
+    res.send(result)
+  })
+})
 //post routes
-app.post('/score',(request,response)=>{
-    const details=request.body;
-    console.log(details);
+app.post('/score',checkAuthenticated,(request,response)=>{
+    const scoreDetails=request.body;
+    console.log(scoreDetails)
+    const sql="UPDATE score SET ??=??+? WHERE username=?"
+    db.query(sql,[scoreDetails.name,scoreDetails.name,scoreDetails.score,request.session.user.username],(err,result)=>{
+      if(err) throw err
+      console.log(result)
+    })
     response.end('done');
 })
 app.listen(PORT,()=>{

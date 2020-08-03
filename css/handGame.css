@@ -1,0 +1,45 @@
+body{
+    background-color: black;
+    color: purple;
+}
+p{
+    font-weight: bold;
+    font-size: 45px;
+}
+#score{
+    font-weight: bolder;
+    font-size: 45px;
+}
+.options{
+    display: flex;
+    justify-content: center;
+}
+.option{
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 35px;
+    cursor: pointer;
+}
+.results {
+    margin-top: 16px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+.result-selectio {
+    opacity: 0.5;
+    font-size: 35px;
+}
+.result-selection.winner{
+    opacity: 1;
+    font-size: 50px;
+}
+.result-message{
+    display: none;
+    position: absolute;
+    top:30%;
+    left:35%
+}

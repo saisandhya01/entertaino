@@ -102,7 +102,7 @@ let platformInterval=setInterval(()=>{
 },10)
 function sendScoreToServer(score){
     const scoreDetails={
-        name:'fallOutGame',
+        name:'game3',
         score: score
     }
     var xhr=new window.XMLHttpRequest();

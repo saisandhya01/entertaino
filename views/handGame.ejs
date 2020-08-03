@@ -4,55 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elephant,Man,Ant</title>
-    <style>
-        body{
-            background-color: black;
-            color: purple;
-        }
-        p{
-            font-weight: bold;
-            font-size: 45px;
-        }
-        #score{
-            font-weight: bolder;
-            font-size: 45px;
-        }
-        .options{
-            display: flex;
-            justify-content: center;
-        }
-        .option{
-            border: none;
-            background: none;
-            outline: none;
-            font-size: 35px;
-            cursor: pointer;
-        }
-        .results {
-            margin-top: 16px;
-            display: grid;
-            justify-content: center;
-            grid-template-columns: repeat(2, 1fr);
-            justify-items: center;
-            align-items: center;
-        }
-        .result-selectio {
-            opacity: 0.5;
-            font-size: 35px;
-        }
-        .result-selection.winner{
-            opacity: 1;
-            font-size: 50px;
-        }
-        .result-message{
-            display: none;
-            position: absolute;
-            top:30%;
-            left:35%
-        }
-    </style>
+    <link href="/handGame.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+    <a href="/choose/game"><button type="button" id="back-button">back</button></a>
     <div class="options">
         <button class="option" id="elephant">🐘</button>
         <button class="option" id="ant">🐜</button>
@@ -74,93 +29,7 @@
         <button>Restart</button>
         </div>
     </div> 
-    <script>
-        let optionClassElement=document.getElementsByClassName('option');
-        let numberOfClicks=0;
-        const finalColumn = document.querySelector('[data-final-column]')
-        let yourScore=document.getElementById('your-score');
-        let computerScore=document.getElementById('computer-score');
-        let resultMessage=document.getElementById('result-message');
-         let possibilities=[
-            {
-                name:'elephant',
-                emoji:'🐘',
-                beats:'man'
-            },
-            {
-                name:'ant',
-                emoji:'🐜',
-                beats:'elephant'
-            },
-            {
-                name:'man',
-                emoji:'👲',
-                beats:'ant'
-            }
-        ]
-        for(let i=0;i<optionClassElement.length;i++){
-         let element=optionClassElement[i];
-         element.addEventListener('mouseover',()=>{
-             element.style.fontSize="50px";
-         })
-         element.addEventListener('mouseout',()=>{
-            element.style.fontSize="35px";
-         })
-         element.addEventListener('click',e=>{
-           numberOfClicks++; 
-           let selectionName=element.id;
-           const selectedDetails=possibilities.find(option=>selectionName===option.name);
-           makeSelections(selectedDetails);
-           if(numberOfClicks>20){
-               sendScoreToServer(yourScore);
-               displayWinner();
-           }
-         })
-        }
-        function makeSelections(selectedDetails){
-            const computerSelection=randomSelection();
-            const isWinnerYou=isWinner(selectedDetails,computerSelection);
-            const isWinnerComputer=isWinner(computerSelection,selectedDetails);
-            addSelections(computerSelection,isWinnerComputer);
-            addSelections(selectedDetails,isWinnerYou);
-            if(isWinnerYou){
-                yourScore.innerHTML=Number(yourScore.innerHTML)+1;
-            }
-            if(isWinnerComputer){
-                computerScore.innerHTML=Number(computerScore.innerHTML)+1;
-            }
-        }
-        function addSelections(selection,winner){
-            let div=document.createElement('div');
-            div.innerHTML=selection.emoji;
-            div.classList.add('result-selection')
-            if (winner) div.classList.add('winner')
-            finalColumn.after(div)
-        }
-        function isWinner(selection,opponentSelection){
-            if(selection.beats===opponentSelection.name){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        function randomSelection(){
-            const randomIndex = Math.floor(Math.random() * possibilities.length)
-            return possibilities[randomIndex];
-
-        }
-        function sendScoreToServer(){
-
-        }
-        function displayWinner(){
-           document.body.style.opacity="0.4";
-           let span=document.getElementById('score');
-           span.innerHTML=yourScore.innerHTML;
-           setTimeout(()=>{
-               resultMessage.style.display="block";
-           },500);
-        }
+    <script src="/handGame.js">
     </script>  
 </body>
 </html>

@@ -1,3 +1,4 @@
+       
         //for displaying the days
         let daysElement=document.getElementById('days');
         let days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -57,10 +58,15 @@
                      cell.innerHTML=date;
                      if(date===today.getDate() && year===today.getFullYear() && month===today.getMonth()){
                          cell.style.background='lightgrey';
+                         let todayDate=new Date(year,month,date)
+                         getNotesFromServer(todayDate)
                      }
                      cell.addEventListener('click',()=>{
                         monthAndYear.innerHTML=(cell.innerHTML)+" "+months[month]+" "+year;
                         diaryDate.innerHTML=(cell.innerHTML)+" "+months[month]+" "+year;
+                        let clickedDate=new Date(year,month,cell.innerHTML)
+                        getNotesFromServer(clickedDate)
+
                      })
                      row.appendChild(cell);
                      date++; 
@@ -68,6 +74,15 @@
               }
             }
         }
+        const picker = new EmojiButton();
+        const trigger = document.querySelector('.trigger');
+        picker.on('emoji', emoji => {
+            diaryContent.innerHTML += emoji;
+          });
+          
+        trigger.addEventListener('click', () => {
+            picker.pickerVisible?picker.hidePicker():picker.showPicker(trigger)
+        }); 
         function previous(){
             currentYear=currentMonth==0?currentYear-1:currentYear;
             currentMonth=currentMonth==0?11:currentMonth-1;
@@ -83,3 +98,57 @@
             currentYear=selectYear.value;
             displayCalendar(currentMonth,currentYear);
         }
+        let diaryContent=document.getElementById('diary-content')
+        function saveNotes(){
+            let notes=diaryContent.innerHTML
+            sendNotesToServer(notes)
+        }
+        function sendNotesToServer(notes){
+            let dateString=diaryDate.innerHTML
+            let dateArray=dateString.split(" ")
+            let t=dateArray[0]
+            dateArray[0]=dateArray[1]
+            dateArray[1]=t
+            let joinedDateString=dateArray.join(" ")
+            let noteCreatedDate=new Date(joinedDateString)
+            const noteDetails={
+                date: noteCreatedDate,
+                notes: notes
+            }
+            var xhr=new window.XMLHttpRequest();
+            xhr.open('POST','/note',true)
+            xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8')
+            xhr.send(JSON.stringify(noteDetails));
+
+         }
+         function getNotesFromServer(date){
+            let URL="/note/"+date
+            fetch(URL)
+              .then((response) => response.text())
+              .then((text) => {
+                  if(text==='nil'){
+                      diaryContent.innerHTML='Write your diary here...'
+                  }
+                  else{
+                      diaryContent.innerHTML=text
+                  }
+              })
+
+         }
+         function deleteNotes(){
+             let dateString=diaryDate.innerHTML
+             let dateArray=dateString.split(" ")
+             let t=dateArray[0]
+             dateArray[0]=dateArray[1]
+             dateArray[1]=t
+             let joinedDateString=dateArray.join(" ")
+             let noteCreatedDate=new Date(joinedDateString)
+             let noteDetails={
+                 date: noteCreatedDate
+             }
+             var xhr=new window.XMLHttpRequest();
+             xhr.open('DELETE','/note',true)
+             xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8')
+             xhr.send(JSON.stringify(noteDetails));
+             diaryContent.innerHTML='Write your diary here...'
+         }

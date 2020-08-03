@@ -34,7 +34,7 @@ const db=mysql.createConnection({
 //middlewares
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/css'));
-app.use(express.static(__dirname + '/client-js'));
+app.use(express.static(__dirname + '/javascript'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(flash())
@@ -162,15 +162,80 @@ app.post('/logout',checkAuthenticated,(req,res)=>{
         res.redirect('/login');
     })
   })
-app.get('/diary',(request,response)=>{
+app.get('/diary',checkAuthenticated,(request,response)=>{
     response.render('diary');
 })
+app.post('/note',checkAuthenticated,(req,res)=>{
+  const noteDetails=req.body
+  let dateFormat=new Date(noteDetails.date)
+  const sql="SELECT * FROM diary WHERE username=? AND date=?"
+  db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    if(result.length!==0){
+      const sql1="UPDATE diary SET notes=? WHERE username=? AND date=?"
+      db.query(sql1,[noteDetails.notes,req.session.user.username,dateFormat],(err,result1)=>{
+        if(err) throw err
+        console.log(result1)
+      })
+    }
+    else{
+      const diaryDetails={
+        username:req.session.user.username,
+        date:dateFormat,
+        notes:noteDetails.notes
+      }
+      const sql1="INSERT INTO diary SET ?"
+      db.query(sql1,diaryDetails,(err,result1)=>{
+        if(err) throw err;
+        console.log(result1)
+      })
+      
+    }
+  })
+  res.end("done")
+})
+app.delete('/note',checkAuthenticated,(req,res)=>{
+  let noteDetails=req.body
+  let dateFormat=new Date(noteDetails.date)
+  const sql="SELECT * FROM diary WHERE username=? AND date=?"
+  db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
+    if(err) throw err
+    if(result.length===0){
+      res.end("no row found for deleting")
+    }
+    else{
+      const sql2="DELETE FROM diary WHERE username=? AND date=?"
+      db.query(sql2,[req.session.user.username,dateFormat],(err,result1)=>{
+        if(err) throw err
+        console.log(result1)
+        res.end('successfully deleted')
+      })
+    }
+  })
+  
+})
+
+app.get('/note/:date',(req,res)=>{
+  let newDate=req.params.date
+  let dateFormat=new Date(newDate)
+  const sql="SELECT * FROM diary WHERE username=? AND date=?"
+  db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
+    if(err) throw err
+    if(result.length===0){
+      res.send('nil')
+    }
+    else{
+      res.send(result[0].notes)
+    }
+  })
+})
+
 app.get('/planner',checkAuthenticated,(req,res)=>{
   res.render('planner')
 })
 app.post('/task',checkAuthenticated,(req,res)=>{
    const taskDetails=req.body
-   console.log(taskDetails)
    let dateFormat=new Date(taskDetails.date)
    const sql="SELECT * FROM planner WHERE username=? AND date=?"
    db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{

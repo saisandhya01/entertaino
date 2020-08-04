@@ -21,7 +21,8 @@ const db=mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : '12345',
-    database: 'ClientDetails'
+    database: 'ClientDetails',
+    charset: 'utf8mb4'
   });
   db.connect((err)=>{
     if(err){

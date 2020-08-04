@@ -35,6 +35,7 @@ const db=mysql.createConnection({
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/css'));
 app.use(express.static(__dirname + '/javascript'));
+app.use(express.static(__dirname + '/css/fonts'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(flash())
@@ -308,7 +309,6 @@ app.get('/score/table',checkAuthenticated,(req,res)=>{
     res.send(result)
   })
 })
-//post routes
 app.post('/score',checkAuthenticated,(request,response)=>{
     const scoreDetails=request.body;
     console.log(scoreDetails)
@@ -318,6 +318,9 @@ app.post('/score',checkAuthenticated,(request,response)=>{
       console.log(result)
     })
     response.end('done');
+})
+app.get('/weather',checkAuthenticated,(req,res)=>{
+  res.render('weather')
 })
 app.listen(PORT,()=>{
     console.log(`Server is listening at ${PORT}`);

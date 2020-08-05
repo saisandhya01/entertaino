@@ -12,26 +12,43 @@
     border: 2px solid blue;
     margin-top: 15px;
     width: 400px;
+    flex: 1;
+    order: 2;
 }
 td{
     cursor: pointer;
 }
 .diary{
     border: 2px solid violet;
+    height: 606px;
     width: 400px;
-    height: 600px;
     margin-top: 15px;
+    flex: 2;
+    order: 1;
+    margin-right: 10px;
+}
+.diary-header{
+    display: flex;
+}
+.diary-header i{
+    margin-top: 5px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    padding-left: 10px;
+    float: right;
 }
 #diary-date{
+    padding-left: 10px;
     height: 6%;
 }
 #diary-content{
     border: 1px solid white;
-    height: 82%;
+    height: 80%;
     overflow: auto;
 }
 #save-button{
-    height: 8%;
+    height: 10%;
     width:100%;
 }
 .form-inline{
@@ -40,12 +57,20 @@ td{
 p{
     padding: 15px;
 }
-@media screen and (max-width: 400px){
+@media screen and (max-width: 620px){
     .container-calendar{
         border: 2px solid blue;
         width: 100%;
         margin-top: 15px;
+
     }
+    .diary{
+        border: 2px solid violet;
+        height: 605px;
+        margin-top: 15px;
+        min-width: 360px;
+    }
+    
     td,th{
         max-width: 14.28%;
     }

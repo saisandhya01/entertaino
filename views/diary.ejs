@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write your Diary</title>
     <link href="/diary.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
@@ -38,10 +39,14 @@
         </div>
 
         <div class="diary">
+        <div class="diary-header">
          <h2 id="diary-date">Date</h2>
-         <button type="button" id="delete-button" onclick="deleteNotes()">Delete</button>
+         <i class="fa fa-trash" id="delete-button" onclick="deleteNotes()" aria-hidden="true"></i>
+         <i class="fa fa-smile-o trigger" aria-hidden="true"></i>
+         <i class="fa fa-pencil" aria-hidden="true"></i>
+         
+        </div>
          <p contenteditable="true" id="diary-content">Write your diary here...</p>
-         <button type="button" class="trigger">Emoji</button>
          <button type="button" id="save-button" onclick="saveNotes()">Save</button>
         </div>
     </div>

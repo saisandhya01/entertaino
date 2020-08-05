@@ -1,0 +1,95 @@
+.card{
+    padding: 15px;
+  }
+  .about{
+    border: 1px solid black;
+    margin-top: 80px;
+    height:400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .about p{
+    padding-left: 10px;
+  }
+  .features-heading{
+    text-align: center;
+    margin-top: 30px;
+  }
+  .features{
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .diary,.planner,.games{
+    width:23.3%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .desc{
+    padding: 10px;
+    margin-left: 20px;
+  }
+  .subscription{
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  .subscription p,.subscription h4{
+    text-align: center;
+    padding: 10px;
+  }
+  .contact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media screen and (max-width: 990px){
+    .diary,.planner,.games{
+    width: 35%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  }
+  @media screen and (max-width: 662px){
+    .diary,.planner,.games{
+    width: 60%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  }
+  @media screen and (max-width: 462px){
+    .diary,.planner,.games{
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  }
+  @media screen and (max-width: 341px){
+    .subscription p,.subscription h4{
+      text-align: center;
+      padding: 10px;
+      margin-left: 20px;
+    }
+  }

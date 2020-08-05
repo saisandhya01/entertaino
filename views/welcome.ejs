@@ -3,91 +3,83 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/welcome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Entertaino</title>
     <style>
-      .card{
-        padding: 15px;
-      }
+        .big{
+          font-size: 55px;
+         }
+        .medium{
+          font-size: 20px;
+          padding: 10px;
+         }
     </style>
   </head>
   <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div class="container">
-            <a class="navbar-brand" href="#">Entertaino</a>
+            <a class="navbar-brand" href="/">Entertaino</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                  <a class="nav-link" href="#about">About<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Contact</a>
+                  <a class="nav-link" href="#contact">Contact</a>
                 </li>
               </ul>
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                      <a class="nav-link" href="/register">SignUp</a>
+                      <a class="nav-link" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/login">SignIn</a>
+                    <a class="nav-link" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
                 </li>
               </ul>
             </div>
             </div>
           </nav>   
-          <div class="container">
-        <div class="jumbotron">
-             <h1>Welcome to Entertaino</h1>
-            <p>For the leisure time in you!</p>
+        <div class="about" id="about">
+          <h1>GOALS</h1>
+          <p>Welcome to Goals! The only place where you can find your inner self in the most relaxing way..</p>
+          <a href="/register"><button>CHECK IT OUT!</button></a>
         </div>
+        <h1 class="features-heading">Features</h1>
+        <div class="features" id="features">
+          <div class="diary">
+            <i class="fa fa-book big" aria-hidden="true"></i>
+            <h4>Write Diaries</h4>
+            <p class="desc">Pen your daily thoughts in a never-like Diary with us.Emojis are added to make your experience more real.</p>
+          </div>
+          <div class="planner">
+            <i class="fa fa-pencil-square-o big" aria-hidden="true"></i>
+            <h4>Make plans</h4>
+            <p class="desc">Want to plan for your day? Fret not! With our exclusive planner,you can make most of your day effectively.</p>
+          </div>
+          <div class="games">
+            <i class="fa fa-gamepad big" aria-hidden="true"></i>
+            <h4>Play games</h4>
+            <p class="desc">Got exhausted or bored? Try our refreshing mind games which can be an energy booster for you!</p>
+          </div>
         </div>
-        <h2 class="display-4 py-5 mt-5 text-center">About</h2>
-        <p class="display-5 py-5 text-center">Lorem ninja ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-
-        <div class="container">
-        <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="card">
-              <div class="card-block">
-                <h3 class="card-title">Write Diaries</h3>
-                <p class="card-text">Pen your thoughts in a diary like us</p>
-              </div>
-             </div>
+        <div class="subscription">
+          <h4>SUBSCRIBE TO OUR NEWSLETTER</h4>
+          <p>Get up to date with latest features,special offers to unlock prizes exclusively for you!</p>
+          <div class="address">
+             <input type="email" name="email" placeholder="john@gmail.com">
+             <button type="submit">SUBSCRIBE</button>
           </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="card">
-              <div class="card-block">
-                <h3 class="card-title">Manage a to-do list</h3>
-                <p class="card-text">Put in your thoughts in a diary like us</p>
-              </div>
-             </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="card">
-              <div class="card-block">
-                <h3 class="card-title">Play games</h3>
-                <p class="card-text">Put in your thoughts in a diary like us</p>
-              </div>
-             </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="card">
-              <div class="card-block">
-                <h3 class="card-title">Listen to music with Spotify</h3>
-                <p class="card-text">Put in your thoughts in a diary like us</p>
-              </div>
-             </div>
-          </div>
-        
+        </div>
+        <p class="copyright">&copy Entertaino 2020</p>
+         <div id="contact" class="contact">
+          <i class="fa fa-instagram medium" aria-hidden="true"></i>
+          <i class="fa fa-facebook medium" aria-hidden="true"></i>
          </div>
-         </div>
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

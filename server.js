@@ -35,6 +35,7 @@ const db=mysql.createConnection({
 //middlewares
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/css'));
+app.use(express.static(__dirname+ '/favicon-files'));
 app.use(express.static(__dirname + '/javascript'));
 app.use(express.static(__dirname + '/css/fonts'));
 app.use(bodyParser.json());

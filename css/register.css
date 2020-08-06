@@ -5,6 +5,7 @@ body{
 }
 .register{
     border: 1px solid black;
+    opacity: 1;
     background: #171E38;
     padding: 13px;
     padding-right: 18px;

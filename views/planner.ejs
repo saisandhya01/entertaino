@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <title>Make a plan</title>
@@ -41,11 +42,17 @@
             </div>
         </div>
         <div class="planner">
+            <div class="planner-header">
             <h2 id="planner-date">Date</h2>
+            <i class="fa fa-plus" id="add-task" onclick="addTask()" aria-hidden="true"></i>
+            <a href="/weather"><i class="fa fa-sun-o" aria-hidden="true"></i>
+            </a>
+            <i class="fa fa-trash-o" id="delete-button" onclick="deleteTasks()" aria-hidden="true"></i>
+            </div>
             <ul id="planner-content">
                 <li contenteditable="true">Write a task</li>
             </ul>
-            <button type="button" id="add-task" onclick="addTask()">Add a task</button>
+            
             <button type="button" id="save-button" onclick="saveTasks()">Save</button>
            </div>
    

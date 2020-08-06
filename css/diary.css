@@ -12,7 +12,6 @@
     border: 2px solid blue;
     margin-top: 15px;
     width: 400px;
-    flex: 1;
     order: 2;
 }
 td{
@@ -21,11 +20,9 @@ td{
 .diary{
     border: 2px solid violet;
     height: 606px;
-    width: 400px;
+    width: 600px;
     margin-top: 15px;
-    flex: 2;
-    order: 1;
-    margin-right: 10px;
+    
 }
 .diary-header{
     display: flex;
@@ -63,12 +60,6 @@ p{
         width: 100%;
         margin-top: 15px;
 
-    }
-    .diary{
-        border: 2px solid violet;
-        height: 605px;
-        margin-top: 15px;
-        min-width: 360px;
     }
     
     td,th{

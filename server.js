@@ -4,6 +4,7 @@ const session=require('express-session')
 const bcrypt=require('bcrypt')
 const flash=require('express-flash')
 const bodyParser=require('body-parser');
+const Joi=require('@hapi/joi')
 const PORT=process.env.PORT || 3000;
 const app=express();
 
@@ -34,6 +35,7 @@ const db=mysql.createConnection({
 
 //middlewares
 app.set('view engine','ejs');
+app.use(express.static(__dirname + '/'));
 app.use(express.static(__dirname + '/css'));
 app.use(express.static(__dirname+ '/favicon-files'));
 app.use(express.static(__dirname + '/javascript'));
@@ -52,7 +54,6 @@ app.use(session({
       secure: IN_PROD
   }
 }))
-
 function checkAuthenticated(req,res,next){
     if(!req.session.user){
         res.redirect('/login');
@@ -61,7 +62,7 @@ function checkAuthenticated(req,res,next){
         next();
     }
   }
-  function checkNotAuthenticated(req,res,next){
+function checkNotAuthenticated(req,res,next){
     if(req.session.user){
         res.redirect('/home');
     }
@@ -70,7 +71,7 @@ function checkAuthenticated(req,res,next){
     }
   }
 
-  function checkForUsername(username){
+function checkForUsername(username){
     return new Promise((resolve,reject)=>{
       const sql="SELECT * FROM users WHERE username=?"
       db.query(sql,[username],(err,result)=>{
@@ -83,12 +84,9 @@ function checkAuthenticated(req,res,next){
         }
       })
     })
-  }
-  
-  
-//routes
+}
 
-//get routes
+//routes
 app.get('/',(request,response)=>{
     response.render('welcome');
 })
@@ -123,7 +121,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
       else{
         req.flash('exist','Username already exists! Try with a different username')
         res.redirect('/register');
-      }
+    }
     }  catch(e){
       console.log(e);
       res.redirect('/register')
@@ -275,6 +273,27 @@ app.post('/task',checkAuthenticated,(req,res)=>{
    })
    res.end('done')
 })
+app.delete('/task',checkAuthenticated,(req,res)=>{
+  let taskDetails=req.body
+  let dateFormat=new Date(taskDetails.date)
+  const sql="SELECT * FROM planner WHERE username=? AND date=?"
+  db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
+    if(err) throw err
+    if(result.length===0){
+      res.end("no row found for deleting")
+    }
+    else{
+      const sql2="DELETE FROM planner WHERE username=? AND date=?"
+      db.query(sql2,[req.session.user.username,dateFormat],(err,result1)=>{
+        if(err) throw err
+        console.log(result1)
+        res.end('successfully deleted')
+      })
+    }
+  })
+  
+})
+
 app.get('/task/:date',(req,res)=>{
   let newDate=req.params.date
   let dateFormat=new Date(newDate)

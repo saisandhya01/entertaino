@@ -133,8 +133,31 @@
                   for(let i=0;i<taskArray.length;i++){
                       let li=document.createElement('li')
                       li.setAttribute('contenteditable','true')
-                      li.innerHTML=taskArray[i]
+                      if(taskArray[i]==='nil'){
+                          li.innerHTML='Write a new task'
+                      }
+                      else{
+                          li.innerHTML=taskArray[i]
+                      }
                       ul.appendChild(li)
                   }
               })
+        }
+        function deleteTasks(){
+            console.log('delete button clicked!')
+            let dateString=plannerDate.innerHTML
+            let dateArray=dateString.split(" ")
+            let t=dateArray[0]
+            dateArray[0]=dateArray[1]
+            dateArray[1]=t
+            let joinedDateString=dateArray.join(" ")
+            let taskCreatedDate=new Date(joinedDateString)
+            let taskDetails={
+                date: taskCreatedDate
+            }
+            var xhr=new window.XMLHttpRequest();
+            xhr.open('DELETE','/task',true)
+            xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8')
+            xhr.send(JSON.stringify(taskDetails));
+            ul.innerHTML=''
         }

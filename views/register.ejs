@@ -12,9 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="particles-js">
     <div class="register">
     <h2>Sign Up</h2>
     <form method="POST">
+        <% if(messages.invalid) { %>
+            <%= messages.invalid %><br>
+            <% } %>      
+
         <% if(messages.exist) { %>
             <%= messages.exist %><br>
             <% } %>      
@@ -29,5 +34,14 @@
         <button type="submit" class="button"><strong>SUBMIT</strong></button>
     </form>
     </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function(){
+          console.log('Json file loaded');
+        });
+
+    </script>
+
 </body>
 </html>

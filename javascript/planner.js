@@ -1,3 +1,4 @@
+
         //for displaying the days
         let daysElement=document.getElementById('days');
         let days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -87,21 +88,37 @@
             currentYear=selectYear.value;
             displayCalendar(currentMonth,currentYear);
         }
-        let ul=document.getElementById('planner-content')
-        function addTask(){
+        let timeArray=['morning','afternoon','evening']
+        for(let i=0;i<timeArray.length;i++){
+            let time=timeArray[i];
+            let heading=document.getElementById(time)
+            let list=document.getElementById(time+'-list')
+            let addTaskButton=document.getElementById('add-'+time)
+            heading.onclick=(()=>{
+                list.classList.toggle('block')
+                addTaskButton.classList.toggle('inline-block')
+            })
+            addTaskButton.onclick=(()=>{
+                addTask(time)
+            })
+        }
+        function addTask(time){
+            let ul=document.getElementById(time+'-list')
             let li=document.createElement('li')
             li.setAttribute("contenteditable","true")
             li.innerHTML=" "
             ul.appendChild(li)
         }
         function saveTasks(){
-            let listLi=document.querySelectorAll('li')
-            let tasks=[]
-            for(i=0;i<listLi.length;i++){
-                listLi[i].setAttribute("contenteditable","false")
-                tasks.push(listLi[i].innerHTML)
+            let tasks=[[],[],[]]
+            for(let i=0;i<timeArray.length;i++){
+                let time=timeArray[i]
+                let list=document.getElementById(time+'-list').getElementsByTagName('li')
+                for(let j=0;j<list.length;j++){
+                    let task=list[j].innerHTML
+                    tasks[i].push(task)
+                }
             }
-            console.log(tasks)
             sendTasksToServer(tasks)
         }
         function sendTasksToServer(tasks){
@@ -112,10 +129,16 @@
             dateArray[1]=t
             let joinedDateString=dateArray.join(" ")
             let taskCreatedDate=new Date(joinedDateString)
-            let taskString=tasks.join(",")
+            let tasksString=[]
+            for(let i=0;i<tasks.length;i++){
+                let string=tasks[i].join(',')
+                tasksString.push(string)
+            }
             const taskDetails={
                 date: taskCreatedDate,
-                tasks: taskString
+                morning: tasksString[0],
+                afternoon: tasksString[1],
+                evening: tasksString[2]
             }
             var xhr=new window.XMLHttpRequest();
             xhr.open('POST','/task',true)
@@ -123,24 +146,42 @@
             xhr.send(JSON.stringify(taskDetails));
         
         }
+        
+        function isEmpty(obj) {
+            return Object.keys(obj).length === 0;
+        }            
+        function makeItNull(){
+            for(let i=0;i<timeArray.length;i++){
+                let time=timeArray[i]
+                let ul=document.getElementById(time+'-list')
+                ul.innerHTML=''
+            }
+        }
         function getTasksFromServer(date){
             let URL="/task/"+date
             fetch(URL)
-              .then((response) => response.text())
-              .then((text) => {
-                  let taskArray=text.split(",")
-                  ul.innerHTML=''
-                  for(let i=0;i<taskArray.length;i++){
-                      let li=document.createElement('li')
-                      li.setAttribute('contenteditable','true')
-                      if(taskArray[i]==='nil'){
-                          li.innerHTML='Write a new task'
+              .then((response) => response.json())
+              .then((data) => {
+                  const empty=isEmpty(data)
+                  if(!empty){
+                  for(let i=0;i<timeArray.length;i++){
+                      let taskString=data[timeArray[i]]
+                      let taskArray=taskString.split(",")
+                      let time=timeArray[i]
+                      let ul=document.getElementById(time+'-list')
+                      ul.innerHTML=''
+                      for(let j=0;j<taskArray.length;j++){
+                          let li=document.createElement('li')
+                          li.setAttribute('contenteditable','true')
+                          li.innerHTML=taskArray[j]
+                          ul.appendChild(li)
                       }
-                      else{
-                          li.innerHTML=taskArray[i]
-                      }
-                      ul.appendChild(li)
                   }
+                }
+                else{
+                    makeItNull()
+                }
+                
               })
         }
         function deleteTasks(){
@@ -159,5 +200,5 @@
             xhr.open('DELETE','/task',true)
             xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8')
             xhr.send(JSON.stringify(taskDetails));
-            ul.innerHTML=''
+            makeItNull()
         }

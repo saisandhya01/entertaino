@@ -12,6 +12,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <title>Make a plan</title>
+    <style>
+        .none{
+            display: none;
+        }
+        .block{
+            display: block;
+        }
+        .inline{
+            display: inline;
+        }
+        .inline-block{
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <div class="body-container">
@@ -44,14 +58,27 @@
         <div class="planner">
             <div class="planner-header">
             <h2 id="planner-date">Date</h2>
-            <i class="fa fa-plus" id="add-task" onclick="addTask()" aria-hidden="true"></i>
             <a href="/weather"><i class="fa fa-sun-o" aria-hidden="true"></i>
             </a>
             <i class="fa fa-trash-o" id="delete-button" onclick="deleteTasks()" aria-hidden="true"></i>
             </div>
-            <ul id="planner-content">
-                <li contenteditable="true">Write a task</li>
-            </ul>
+            <div id="planner-content">
+                <h3 id="morning">Morning</h3>
+                <i class="fa fa-plus none" id="add-morning" aria-hidden="true"></i>
+                <ul id="morning-list" class="none">
+                    <li contenteditable="true">morning task</li>
+                </ul>
+                <h3 id="afternoon">Afternoon</i></h3>
+                <i class="fa fa-plus none" id="add-afternoon" aria-hidden="true"></i>
+                <ul id="afternoon-list" class="none">
+                    <li contenteditable="true">afternoon task</li>
+                </ul>
+                <h3 id="evening">Evening</h3>
+                <i class="fa fa-plus none" id="add-evening" aria-hidden="true"></i>
+                <ul id="evening-list" class="none">
+                    <li contenteditable="true">evening task</li>
+                </ul>
+            </div>
             
             <button type="button" id="save-button" onclick="saveTasks()">Save</button>
            </div>

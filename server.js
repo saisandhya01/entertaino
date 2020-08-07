@@ -251,8 +251,8 @@ app.post('/task',checkAuthenticated,(req,res)=>{
      if(err) throw err;
      console.log(result)
      if(result.length!==0){
-       const sql1="UPDATE planner SET tasks=? WHERE username=? AND date=?"
-       db.query(sql1,[taskDetails.tasks,req.session.user.username,dateFormat],(err,result1)=>{
+       const sql1="UPDATE planner SET morning=?,afternoon=?,evening=? WHERE username=? AND date=?"
+       db.query(sql1,[taskDetails.morning,taskDetails.afternoon,taskDetails.evening,req.session.user.username,dateFormat],(err,result1)=>{
          if(err) throw err
          console.log(result1)
        })
@@ -261,7 +261,9 @@ app.post('/task',checkAuthenticated,(req,res)=>{
        const plannerDetails={
          username:req.session.user.username,
          date:dateFormat,
-         tasks:taskDetails.tasks
+         morning: taskDetails.morning,
+         afternoon: taskDetails.afternoon,
+         evening: taskDetails.evening
        }
        const sql1="INSERT INTO planner SET ?"
        db.query(sql1,plannerDetails,(err,result1)=>{
@@ -301,10 +303,10 @@ app.get('/task/:date',(req,res)=>{
   db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
     if(err) throw err
     if(result.length===0){
-      res.send('nil')
+      res.send({})
     }
     else{
-      res.send(result[0].tasks)
+      res.send(result[0])
     }
   })
 })

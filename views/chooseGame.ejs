@@ -7,14 +7,32 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Choose your game</title>
+    <style>
+       .main{
+           display: flex;
+           flex-direction: column;
+           width: 100%;
+           height: 100vh;
+           justify-content: space-around;
+           align-items: center;
+       }
+       @media screen and (max-width: 320px ){
+           .title{
+               padding: 10px;
+               margin-right: 10px;
+           }
+       }
+    </style>
 </head>
 <body>
-    <a href="/game1">Type the word</a>
-    <a href="/game2">Stone,Paper,Scissor Replica</a>
-    <a href="/game3">Fall out game</a>
-    <hr>
-    <a href="/scoreboard"><button>SCOREBOARD</button></a>
+  <div class="main">
+      <h2 class="title">CHOOSE YOUR GAME</h2>
+      <a href="/game1"><button>Speed Tester</button></a>
+      <a href="/game2"><button>Hand Play</button></a>
+      <a href="/game3"><button>Fall Out</button></a>
+      <a href="/scoreboard"><h4>SCORE BOARD</h4></a>
+  </div>
 </body>
 </html>

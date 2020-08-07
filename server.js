@@ -340,6 +340,9 @@ app.post('/score',checkAuthenticated,(request,response)=>{
     })
     response.end('done');
 })
+app.get('/name',checkAuthenticated,(req,res)=>{
+  res.send(req.session.user.username)
+})
 app.get('/weather',checkAuthenticated,(req,res)=>{
   res.render('weather')
 })

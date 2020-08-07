@@ -9,9 +9,24 @@ function getScores(){
       })
 
 }
+let yourName=''
+function getName(){
+    let URL="/name"
+    fetch(URL)
+      .then((response) => response.text())
+      .then((data)=>{
+          console.log(data)
+          yourName=data
+      })
+}
+let yourPosition=document.getElementById('your-position')
 function renderScores(data){
-    for(let i=0;i<data.length;i++){
+    for(let i=0;i<5;i++){
         let row=document.createElement('tr')
+        if(yourName===data[i].username){
+            row.classList.add('your-rank')
+            yourPosition.innerHTML=(i+1)
+        }
         let rank=document.createElement('th')
         rank.innerHTML=(i+1)
         row.appendChild(rank)
@@ -23,6 +38,9 @@ function renderScores(data){
         row.appendChild(scores)
         scoreBoard.appendChild(row)
     }
-
+    //let index = data.findIndex(x => x.username === yourName);
+    //console.log(index)
+    //yourPosition.innerHTML=index+1
 }
+getName()
 getScores()

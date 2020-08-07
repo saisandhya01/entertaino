@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
@@ -12,10 +14,10 @@
 <body>
     <h1>Welcome <%= name %></h1>
     <form action="/logout" method="POST">
-        <button type="submit" id="log-out">Log Out</button>
+        <button type="submit" id="log-out"><i class="fa fa-sign-out" aria-hidden="true"></i>SignOut</button>
       </form>    
-    <a href="/diary"><h2>Write your diary today</h2></a>
-    <a href="/planner"><h2>Make a planner</h2></a> 
-    <a href="/choose/game"><h2>Play games</h2></a> 
+    <a href="/diary"><h2>Write your diary today <i class="fa fa-book" aria-hidden="true"></i></h2></a>
+    <a href="/planner"><h2>Make a planner <i class="fa fa-pencil-square-o" aria-hidden="true"></i></h2></a> 
+    <a href="/choose/game"><h2>Play games <i class="fa fa-gamepad" aria-hidden="true"></i></h2></a> 
 </body>
 </html>

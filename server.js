@@ -1,13 +1,15 @@
+//constants
 const express=require('express');
 const mysql=require('mysql')
 const session=require('express-session')
 const bcrypt=require('bcrypt')
 const flash=require('express-flash')
 const bodyParser=require('body-parser');
-const Joi=require('@hapi/joi')
+const multer=require('multer')
+const path=require('path')
+
 const PORT=process.env.PORT || 3000;
 const app=express();
-
 const THREE_HOURS=1000*60*60*3;
 const {
   NODE_ENV='development',
@@ -35,6 +37,7 @@ const db=mysql.createConnection({
 
 //middlewares
 app.set('view engine','ejs');
+app.use(express.static('./public'));
 app.use(express.static(__dirname + '/'));
 app.use(express.static(__dirname + '/css'));
 app.use(express.static(__dirname+ '/favicon-files'));
@@ -54,6 +57,7 @@ app.use(session({
       secure: IN_PROD
   }
 }))
+
 function checkAuthenticated(req,res,next){
     if(!req.session.user){
         res.redirect('/login');
@@ -70,6 +74,32 @@ function checkNotAuthenticated(req,res,next){
         next();
     }
   }
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 1000000},
+  fileFilter: function(req, file, cb){
+    checkFileType(file, cb);
+  }
+}).single('myImage');
+
+function checkFileType(file, cb){
+  const filetypes = /jpeg|jpg|png|gif/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null,true);
+  } else {
+    cb('Error: Images Only!');
+  }
+}
 
 function checkForUsername(username){
     return new Promise((resolve,reject)=>{
@@ -115,7 +145,8 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
         const sql1="INSERT INTO users SET ?"
         db.query(sql1,user,(err,result)=>{
           if(err) throw err;
-          res.redirect('/login')
+          req.session.user=user
+          res.redirect('/image-upload')
         })
       }
       else{
@@ -160,7 +191,16 @@ app.post('/login',checkNotAuthenticated,(req,res)=>{
   })
   
 app.get('/home',checkAuthenticated,(request,response)=>{
-    response.render('home',{name: request.session.user.name,username: request.session.user.username});
+ const sql="SELECT image FROM users WHERE username=?"
+ db.query(sql,[request.session.user.username],(err,result)=>{
+   if(err) throw err
+   if(result.length===0){
+     response.render('home',{image:`/favicon-16x16.png`,name:request.session.user.username})
+   }
+   else{
+     response.render('home',{image:`/uploads/${result[0].image}`,name:request.session.user.username})
+   }
+ })
 })
 app.post('/logout',checkAuthenticated,(req,res)=>{
     req.session.destroy(err=>{
@@ -348,6 +388,28 @@ app.get('/name',checkAuthenticated,(req,res)=>{
 app.get('/weather',checkAuthenticated,(req,res)=>{
   res.render('weather')
 })
+app.get('/image-upload',checkAuthenticated,(req,res)=>{
+  res.render('image-upload')
+})
+app.post('/upload', checkAuthenticated,(req, res) => {
+  upload(req, res, (err) => {
+    if(err){
+      res.render('image-upload', {msg: err});
+    } else {
+      if(req.file == undefined){
+        res.render('image-upload', {msg: 'Error: No File Selected!'});
+      } else {
+        const sql="UPDATE users SET image=? WHERE username=?"
+        db.query(sql,[req.file.filename,req.session.user.username],(err,result)=>{
+          if(err) throw err
+          console.log(result)
+          res.redirect('/home')
+        })
+      }
+    }
+  });
+});
+
 app.listen(PORT,()=>{
     console.log(`Server is listening at ${PORT}`);
 })

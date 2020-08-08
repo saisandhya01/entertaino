@@ -10,14 +10,40 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <title>Home</title>
+    <style>
+      .main{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center;
+          width: 100%;
+          height: 100vh;
+          border: 1px solid blue;
+      }
+      .image{
+          width: 200px;
+          height: 200px;
+          overflow: hidden;
+          border: 1px solid red;
+      }
+      #profile-photo{
+          cursor: pointer;
+      }
+    </style>
 </head>
 <body>
-    <h1>Welcome <%= name %></h1>
     <form action="/logout" method="POST">
         <button type="submit" id="log-out"><i class="fa fa-sign-out" aria-hidden="true"></i>SignOut</button>
       </form>    
+    <div class="main">
+    <h1>Welcome <%= name %></h1>
+    <div class="image">
+        <image id="profile-photo" src="<%= image %>"></image>
+    </div>
     <a href="/diary"><h2>Write your diary today <i class="fa fa-book" aria-hidden="true"></i></h2></a>
     <a href="/planner"><h2>Make a planner <i class="fa fa-pencil-square-o" aria-hidden="true"></i></h2></a> 
     <a href="/choose/game"><h2>Play games <i class="fa fa-gamepad" aria-hidden="true"></i></h2></a> 
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </body>
 </html>

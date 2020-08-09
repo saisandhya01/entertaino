@@ -3,36 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-files/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-files/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-files/favicon-16x16.png">
-    <link rel="manifest" href="/favicon-files/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Choose your game</title>
-    <style>
-       .main{
-           display: flex;
-           flex-direction: column;
-           width: 100%;
-           height: 100vh;
-           justify-content: space-around;
-           align-items: center;
-       }
-       @media screen and (max-width: 320px ){
-           .title{
-               padding: 10px;
-               margin-right: 10px;
-           }
-       }
-    </style>
+    <link rel="stylesheet" href="/css/chooseGame.css" type="text/css">
 </head>
 <body>
-  <div class="main">
+    <div class="body">
+    <a href="/home"><button type="submit" id="back-button">BACK</button></a>
+      <div class="main">
       <h2 class="title">CHOOSE YOUR GAME</h2>
       <a href="/game1"><button>Speed Tester</button></a>
       <a href="/game2"><button>Hand Play</button></a>
       <a href="/game3"><button>Fall Out</button></a>
       <a href="/scoreboard"><h4>SCORE BOARD</h4></a>
+    </div>
   </div>
 </body>
 </html>

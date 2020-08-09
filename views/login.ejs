@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-files/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-files/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-files/favicon-16x16.png">
-    <link rel="manifest" href="/favicon-files/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
     <title>Login</title>
     <link href="/css/login.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
@@ -20,9 +20,9 @@
         <% } %>
     <form method="POST">
         <label for="username" class="form-label">Your Username:</label>
-        <input type="text" name="username" id="username" placeholder="Username" class="form-input"><br><br>
+        <input type="text" name="username" id="username" placeholder="Username" class="form-input" required><br><br>
         <label for="password" class="form-label">Your Password:</label>
-        <input type="password" name="password" id="password" placeholder="Password" class="form-input"><br><br><br>
+        <input type="password" name="password" id="password" placeholder="Password" class="form-input" required><br><br><br>
         <button type="submit">Login</button>
     </form>
 </div>

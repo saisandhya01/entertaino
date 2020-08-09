@@ -3,46 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-files/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-files/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-files/favicon-16x16.png">
-    <link rel="manifest" href="/favicon-files/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
     <title>Home</title>
-    <style>
-      .main{
-          display: flex;
-          flex-direction: column;
-          justify-content: space-around;
-          align-items: center;
-          width: 100%;
-          height: 100vh;
-          border: 1px solid blue;
-      }
-      .image{
-          width: 200px;
-          height: 200px;
-          overflow: hidden;
-          border: 1px solid red;
-      }
-      #profile-photo{
-          cursor: pointer;
-      }
-    </style>
+    <link href="/css/home.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <div class="body">
     <form action="/logout" method="POST">
         <button type="submit" id="log-out"><i class="fa fa-sign-out" aria-hidden="true"></i>SignOut</button>
       </form>    
     <div class="main">
-    <h1>Welcome <%= name %></h1>
+    <h1 id="welcome-message">Welcome <%= name %>,</h1>
     <div class="image">
         <image id="profile-photo" src="<%= image %>"></image>
     </div>
-    <a href="/diary"><h2>Write your diary today <i class="fa fa-book" aria-hidden="true"></i></h2></a>
+    <a href="/diary"><h2 class="diary">Write your diary today <i class="fa fa-book" aria-hidden="true"></i></h2></a>
     <a href="/planner"><h2>Make a planner <i class="fa fa-pencil-square-o" aria-hidden="true"></i></h2></a> 
     <a href="/choose/game"><h2>Play games <i class="fa fa-gamepad" aria-hidden="true"></i></h2></a> 
+    </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </body>

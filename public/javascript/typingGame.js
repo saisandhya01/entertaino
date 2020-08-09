@@ -40,7 +40,7 @@ quoteInput.addEventListener('input',()=>{
         }
     })
     if(correct){
-        sendScoreToServer(timer.innerHTML);
+        changeTimeToScore(timer.innerHTML)
         clearTimer();
     }
 })
@@ -58,6 +58,19 @@ function clearTimer(){
     inteval=null;
     timer.innerHTML=0;
     addNewQuote();
+}
+let score=0
+function changeTimeToScore(time){
+    if(time<=10){
+      score=50
+    }
+    else if(time>10 && time<=20){
+        score=30
+    }
+    else{
+        score=0
+    }
+    sendScoreToServer(score)
 }
 function sendScoreToServer(score){
     const scoreDetails={

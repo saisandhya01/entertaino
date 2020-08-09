@@ -137,7 +137,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
         const userScore={
           username: req.body.username
         }
-        const sql="INSERT INTO score SET ?"
+        const sql="INSERT INTO scores SET ?"
         db.query(sql,userScore,(err,result)=>{
           if(err) throw err
           console.log(result)
@@ -194,8 +194,9 @@ app.get('/home',checkAuthenticated,(request,response)=>{
  const sql="SELECT image FROM users WHERE username=?"
  db.query(sql,[request.session.user.username],(err,result)=>{
    if(err) throw err
-   if(result.length===0){
-     response.render('home',{image:`/favicon-16x16.png`,name:request.session.user.username})
+   console.log(result)
+   if(result[0].image===null){
+     response.render('home',{image:`/apple-touch-icon.png`,name:request.session.user.username})
    }
    else{
      response.render('home',{image:`/uploads/${result[0].image}`,name:request.session.user.username})
@@ -217,12 +218,12 @@ app.get('/diary',checkAuthenticated,(request,response)=>{
 app.post('/note',checkAuthenticated,(req,res)=>{
   const noteDetails=req.body
   let dateFormat=new Date(noteDetails.date)
-  const sql="SELECT * FROM diary WHERE username=? AND date=?"
+  const sql="SELECT * FROM diaries WHERE username=? AND date=?"
   db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
     if(err) throw err;
     console.log(result)
     if(result.length!==0){
-      const sql1="UPDATE diary SET notes=? WHERE username=? AND date=?"
+      const sql1="UPDATE diaries SET notes=? WHERE username=? AND date=?"
       db.query(sql1,[noteDetails.notes,req.session.user.username,dateFormat],(err,result1)=>{
         if(err) throw err
         console.log(result1)
@@ -234,7 +235,7 @@ app.post('/note',checkAuthenticated,(req,res)=>{
         date:dateFormat,
         notes:noteDetails.notes
       }
-      const sql1="INSERT INTO diary SET ?"
+      const sql1="INSERT INTO diaries SET ?"
       db.query(sql1,diaryDetails,(err,result1)=>{
         if(err) throw err;
         console.log(result1)
@@ -247,14 +248,14 @@ app.post('/note',checkAuthenticated,(req,res)=>{
 app.delete('/note',checkAuthenticated,(req,res)=>{
   let noteDetails=req.body
   let dateFormat=new Date(noteDetails.date)
-  const sql="SELECT * FROM diary WHERE username=? AND date=?"
+  const sql="SELECT * FROM diaries WHERE username=? AND date=?"
   db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
     if(err) throw err
     if(result.length===0){
       res.end("no row found for deleting")
     }
     else{
-      const sql2="DELETE FROM diary WHERE username=? AND date=?"
+      const sql2="DELETE FROM diaries WHERE username=? AND date=?"
       db.query(sql2,[req.session.user.username,dateFormat],(err,result1)=>{
         if(err) throw err
         console.log(result1)
@@ -268,7 +269,7 @@ app.delete('/note',checkAuthenticated,(req,res)=>{
 app.get('/note/:date',(req,res)=>{
   let newDate=req.params.date
   let dateFormat=new Date(newDate)
-  const sql="SELECT * FROM diary WHERE username=? AND date=?"
+  const sql="SELECT * FROM diaries WHERE username=? AND date=?"
   db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
     if(err) throw err
     if(result.length===0){
@@ -286,12 +287,12 @@ app.get('/planner',checkAuthenticated,(req,res)=>{
 app.post('/task',checkAuthenticated,(req,res)=>{
    const taskDetails=req.body
    let dateFormat=new Date(taskDetails.date)
-   const sql="SELECT * FROM planner WHERE username=? AND date=?"
+   const sql="SELECT * FROM planners WHERE username=? AND date=?"
    db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
      if(err) throw err;
      console.log(result)
      if(result.length!==0){
-       const sql1="UPDATE planner SET morning=?,afternoon=?,evening=? WHERE username=? AND date=?"
+       const sql1="UPDATE planners SET morning=?,afternoon=?,evening=? WHERE username=? AND date=?"
        db.query(sql1,[taskDetails.morning,taskDetails.afternoon,taskDetails.evening,req.session.user.username,dateFormat],(err,result1)=>{
          if(err) throw err
          console.log(result1)
@@ -305,7 +306,7 @@ app.post('/task',checkAuthenticated,(req,res)=>{
          afternoon: taskDetails.afternoon,
          evening: taskDetails.evening
        }
-       const sql1="INSERT INTO planner SET ?"
+       const sql1="INSERT INTO planners SET ?"
        db.query(sql1,plannerDetails,(err,result1)=>{
          if(err) throw err;
          console.log(result1)
@@ -318,14 +319,14 @@ app.post('/task',checkAuthenticated,(req,res)=>{
 app.delete('/task',checkAuthenticated,(req,res)=>{
   let taskDetails=req.body
   let dateFormat=new Date(taskDetails.date)
-  const sql="SELECT * FROM planner WHERE username=? AND date=?"
+  const sql="SELECT * FROM planners WHERE username=? AND date=?"
   db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
     if(err) throw err
     if(result.length===0){
       res.end("no row found for deleting")
     }
     else{
-      const sql2="DELETE FROM planner WHERE username=? AND date=?"
+      const sql2="DELETE FROM planners WHERE username=? AND date=?"
       db.query(sql2,[req.session.user.username,dateFormat],(err,result1)=>{
         if(err) throw err
         console.log(result1)
@@ -339,7 +340,7 @@ app.delete('/task',checkAuthenticated,(req,res)=>{
 app.get('/task/:date',(req,res)=>{
   let newDate=req.params.date
   let dateFormat=new Date(newDate)
-  const sql="SELECT * FROM planner WHERE username=? AND date=?"
+  const sql="SELECT * FROM planners WHERE username=? AND date=?"
   db.query(sql,[req.session.user.username,dateFormat],(err,result)=>{
     if(err) throw err
     if(result.length===0){
@@ -366,7 +367,7 @@ app.get('/scoreboard',checkAuthenticated,(request,response)=>{
     response.render('scoreboard')
 })
 app.get('/score/table',checkAuthenticated,(req,res)=>{
-  const sql="SELECT username,(game1+game2+game3) AS scores FROM score ORDER BY (game1+game2+game3) DESC"
+  const sql="SELECT username,(game1+game2+game3) AS scores FROM scores ORDER BY (game1+game2+game3) DESC"
   db.query(sql,(err,result)=>{
     if(err) throw err
     res.send(result)
@@ -375,7 +376,7 @@ app.get('/score/table',checkAuthenticated,(req,res)=>{
 app.post('/score',checkAuthenticated,(request,response)=>{
     const scoreDetails=request.body;
     console.log(scoreDetails)
-    const sql="UPDATE score SET ??=??+? WHERE username=?"
+    const sql="UPDATE scores SET ??=??+? WHERE username=?"
     db.query(sql,[scoreDetails.name,scoreDetails.name,scoreDetails.score,request.session.user.username],(err,result)=>{
       if(err) throw err
       console.log(result)

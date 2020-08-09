@@ -1,21 +1,33 @@
-.card{
+   body{
+    background: linear-gradient(to bottom, #cc33ff 0%, #6600cc 100%);
+   }
+  .card{
     padding: 15px;
   }
+  
   .about{
     border: 1px solid black;
-    margin-top: 80px;
+    background-image: url('/assets/book.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100vh;
+    margin-top: 57px;
     height:400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+  .about h1{
+    color: white;
+  }
   .about p{
     padding-left: 10px;
+    color: white;
+    font-size: 20px;
   }
   .features-heading{
     text-align: center;
-    margin-top: 30px;
+    margin-top: 80px;
   }
   .features{
     display: flex;
@@ -52,6 +64,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .copyright{
+    margin-top: 11px;
   }
   @media screen and (max-width: 990px){
     .diary,.planner,.games{

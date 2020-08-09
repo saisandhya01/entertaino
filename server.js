@@ -39,10 +39,6 @@ const db=mysql.createConnection({
 app.set('view engine','ejs');
 app.use(express.static('./public'));
 app.use(express.static(__dirname + '/'));
-app.use(express.static(__dirname + '/css'));
-app.use(express.static(__dirname+ '/favicon-files'));
-app.use(express.static(__dirname + '/javascript'));
-app.use(express.static(__dirname + '/css/fonts'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(flash())
@@ -196,7 +192,7 @@ app.get('/home',checkAuthenticated,(request,response)=>{
    if(err) throw err
    console.log(result)
    if(result[0].image===null){
-     response.render('home',{image:`/apple-touch-icon.png`,name:request.session.user.username})
+     response.render('home',{image:`/favicon-files/apple-touch-icon.png`,name:request.session.user.username})
    }
    else{
      response.render('home',{image:`/uploads/${result[0].image}`,name:request.session.user.username})

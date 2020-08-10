@@ -5,5 +5,5 @@ const db=mysql.createConnection({
     password : '12345',
     database: 'ClientDetails',
     charset: 'utf8mb4'
-  });
+});
 module.exports=db

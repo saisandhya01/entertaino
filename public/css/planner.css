@@ -54,6 +54,15 @@ td{
 p{
     padding: 15px;
 }
+.time-heading{
+    padding: 10px;
+    cursor: pointer;
+    background-color: grey;
+}
+.add-task{
+    padding-left: 10px;
+    cursor: pointer;
+}
 @media screen and (max-width: 400px){
     .container-calendar{
         border: 2px solid blue;

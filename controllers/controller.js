@@ -73,16 +73,16 @@ exports.user_register = async (req, res) => {
       const userScore = {
         username: req.body.username,
       };
-      const sql = "INSERT INTO scores SET ?";
-      db.query(sql, userScore, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-      });
       const sql1 = "INSERT INTO users SET ?";
       db.query(sql1, user, (err, result) => {
         if (err) throw err;
         req.session.user = user;
         res.redirect("/image-upload");
+      });
+      const sql = "INSERT INTO scores SET ?";
+      db.query(sql, userScore, (err, result) => {
+        if (err) throw err;
+        console.log(result);
       });
     } else {
       req.flash(

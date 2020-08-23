@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <title>Elephant,Man,Ant</title>
     <link href="/css/handGame.css" type="text/css" rel="stylesheet">
 </head>
+
 <body>
     <a href="/choose/game"><button type="button" id="back-button">BACK</button></a>
     <div class="options">
@@ -19,20 +21,22 @@
     </div>
     <div class="results">
         <div>
-          You
-          <span class="result-score" id="your-score">0</span>
+            You
+            <span class="result-score" id="your-score">0</span>
         </div>
         <div data-final-column>
-          Computer
-          <span class="result-score" id="computer-score">0</span>
+            Computer
+            <span class="result-score" id="computer-score">0</span>
         </div>
-    </div> 
+    </div>
     <div class="result-message" id="result-message">
         <div class="message">
-        <p>Your score is <span id="score"></span></p>
+            <p>Your score is <span id="score"></span></p>
         </div>
-    </div> 
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/javascript/handGame.js">
-    </script>  
+    </script>
 </body>
+
 </html>

@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const multer = require("multer");
 const path = require("path");
+
+//connecting to database
 const db = require("../config/db-auth");
 db.connect((err) => {
   if (err) {
@@ -8,6 +10,8 @@ db.connect((err) => {
   }
   console.log("Mysql connected!");
 });
+
+//session constants
 const THREE_HOURS = 1000 * 60 * 60 * 3;
 const {
   NODE_ENV = "development",

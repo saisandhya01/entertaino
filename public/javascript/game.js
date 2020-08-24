@@ -30,9 +30,47 @@ class Game {
     const turns = this.turns;
 
     if (turns[0] && turns[1]) {
-      this.sendToPlayers("Game over" + turns.join(" : "));
+      this.sendToPlayers("Round over-" + turns.join(" : "));
+      this.getGameResult();
       this.turns = [null, null];
-      //this.sendToPlayers('Next Round!!!!');
+      this.sendToPlayers("Next Round!!!!");
+    }
+  }
+  getGameResult() {
+    const p0 = this.decodeTurn(this.turns[0]);
+    const p1 = this.decodeTurn(this.turns[1]);
+
+    const distance = (p1 - p0 + 3) % 3;
+
+    switch (distance) {
+      case 0:
+        this.sendToPlayers("Draw!");
+        break;
+
+      case 1:
+        this.sendWinMessage(this.players[0], this.players[1]);
+        break;
+
+      case 2:
+        this.sendWinMessage(this.players[1], this.players[0]);
+        break;
+    }
+  }
+  sendWinMessage(winner, loser) {
+    winner.emit("selection", "You won!");
+    loser.emit("selection", "You lost.");
+  }
+
+  decodeTurn(turn) {
+    switch (turn) {
+      case "ant":
+        return 0;
+      case "elephant":
+        return 1;
+      case "man":
+        return 2;
+      default:
+        throw new Error(`Could not decode turn ${turn}`);
     }
   }
 }

@@ -2,9 +2,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("planners", {
-      username: {
-        type: Sequelize.STRING,
-      },
       date: {
         type: Sequelize.DATE,
       },
@@ -19,6 +16,15 @@ module.exports = {
       evening: {
         type: Sequelize.TEXT,
         allowNull: false,
+      },
+      username: {
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        references: {
+          model: "users",
+          key: "username",
+          as: "username",
+        },
       },
     });
   },

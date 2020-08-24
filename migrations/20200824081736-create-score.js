@@ -2,9 +2,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("scores", {
-      username: {
-        type: Sequelize.STRING,
-      },
       game1: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -19,6 +16,15 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,
+      },
+      username: {
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        references: {
+          model: "users",
+          key: "username",
+          as: "username",
+        },
       },
     });
   },

@@ -9,11 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      planner.belongsTo(models.user, {
+        foreignKey: "username",
+        onDelete: "CASCADE",
+      });
     }
   }
   planner.init(
     {
-      username: DataTypes.STRING,
       date: DataTypes.DATE,
       morning: DataTypes.TEXT,
       afternoon: DataTypes.TEXT,

@@ -9,11 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      diary.belongsTo(models.user, {
+        foreignKey: "username",
+        onDelete: "CASCADE",
+      });
     }
   }
   diary.init(
     {
-      username: DataTypes.STRING,
       date: DataTypes.DATE,
       notes: DataTypes.TEXT,
     },

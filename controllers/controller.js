@@ -376,5 +376,5 @@ exports.game2 = (request, response) => {
   response.render("handGame");
 };
 exports.game3 = (request, response) => {
-  response.render("fallOutGame");
+  response.render("handGamem");
 };

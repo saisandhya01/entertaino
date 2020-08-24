@@ -51,12 +51,15 @@ http.listen(PORT, () => {
 let waitingPlayer = null;
 io.on("connection", (sock) => {
   console.log("A user connected");
-
-  if (waitingPlayer) {
-    new Game(waitingPlayer, sock);
-    waitingPlayer = null;
-  } else {
-    waitingPlayer = sock;
-    waitingPlayer.emit("message", "Waiting for an opponent");
-  }
+  sock.on("game3", (text) => {
+    if (text === "handGame") {
+      if (waitingPlayer) {
+        new Game(waitingPlayer, sock);
+        waitingPlayer = null;
+      } else {
+        waitingPlayer = sock;
+        waitingPlayer.emit("message", "Waiting for an opponent");
+      }
+    }
+  });
 });

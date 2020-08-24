@@ -16,13 +16,19 @@ class Game {
       player.emit("message", msg);
     });
   }
+  sendToPlayers2(msg) {
+    this.players.forEach((player) => {
+      player.emit("result", msg);
+    });
+  }
+
   sendToPlayer(playerIndex, msg) {
     this.players[playerIndex].emit("selection", msg);
   }
 
   onTurn(playerIndex, turn) {
     this.turns[playerIndex] = turn;
-    this.sendToPlayer(playerIndex, `You selected ${turn}`);
+    this.sendToPlayer(playerIndex, `${turn}`);
 
     this.checkGameOver();
   }
@@ -30,10 +36,10 @@ class Game {
     const turns = this.turns;
 
     if (turns[0] && turns[1]) {
-      this.sendToPlayers("Round over-" + turns.join(" : "));
+      this.sendToPlayers2("Round over-" + turns.join(" : "));
       this.getGameResult();
       this.turns = [null, null];
-      this.sendToPlayers("Next Round!!!!");
+      this.sendToPlayers2("Next Round!");
     }
   }
   getGameResult() {
@@ -57,8 +63,8 @@ class Game {
     }
   }
   sendWinMessage(winner, loser) {
-    winner.emit("selection", "You won!");
-    loser.emit("selection", "You lost.");
+    winner.emit("win", "You won!");
+    loser.emit("result", "You lost.");
   }
 
   decodeTurn(turn) {
@@ -70,7 +76,7 @@ class Game {
       case "man":
         return 2;
       default:
-        throw new Error(`Could not decode turn ${turn}`);
+        throw new Error(`Something went wrong: ${turn}`);
     }
   }
 }

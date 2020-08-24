@@ -54,8 +54,5 @@ router.post("/task", checkAuthenticated, Controllers.update_task);
 router.delete("/task", checkAuthenticated, Controllers.delete_task);
 
 router.get("/task/:date", checkAuthenticated, Controllers.get_task);
-router.get("/socket", checkNotAuthenticated, (req, res) => {
-  res.render("socketexample");
-});
 
 module.exports = router;

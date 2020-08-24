@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <title>Multiplayer eam</title>
+    <style>
+        body {
+            background-color: black;
+            color: violet;
+        }
+
+        .result-bar-score {
+            display: flex;
+            justify-content: center;
+        }
+
+        .result-bar-score>p {
+            padding: 10px;
+            font-size: 28px;
+        }
+
+        #connection-message {
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .options>button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .results {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="connection-message">
+
+    </div>
+    <div class="options">
+        <button class="option" id="elephant">🐘</button>
+        <button class="option" id="ant">🐜</button>
+        <button class="option" id="man">👲</button>
+    </div>
+    <div class="result-bar-score">
+        <p>Your selection </p>
+        <p>Score: <span id="score">0</span></p>
+    </div>
+    <div id="results" class="results">
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascript/handGamem.js"></script>
+</body>
+
+</html>

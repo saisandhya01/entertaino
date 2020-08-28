@@ -55,4 +55,7 @@ router.delete("/task", checkAuthenticated, Controllers.delete_task);
 
 router.get("/task/:date", checkAuthenticated, Controllers.get_task);
 
+router.get("/game4", checkNotAuthenticated, (req, res) => {
+  res.render("typingGamem");
+});
 module.exports = router;

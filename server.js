@@ -43,12 +43,14 @@ app.use(
 app.use("/", require("./routes/index.js"));
 
 const Game = require("./public/javascript/game");
+const Game2 = require("./public/javascript/game2");
 
 http.listen(PORT, () => {
   console.log(`Server is listening at ${PORT}`);
 });
 
 let waitingPlayer = null;
+let waitingPlayer2 = null;
 io.on("connection", (sock) => {
   console.log("A user connected");
   sock.on("game3", (text) => {
@@ -59,6 +61,17 @@ io.on("connection", (sock) => {
       } else {
         waitingPlayer = sock;
         waitingPlayer.emit("message", "Waiting for an opponent");
+      }
+    }
+  });
+  sock.on("game4", (text) => {
+    if (text === "typingGame") {
+      if (waitingPlayer2) {
+        new Game2(waitingPlayer2, sock);
+        waitingPlayer2 = null;
+      } else {
+        waitingPlayer2 = sock;
+        waitingPlayer2.emit("message", "Waiting for an opponent");
       }
     }
   });
